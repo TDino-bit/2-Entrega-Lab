@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post
+from .models import Post, Comment
 
 def post_create(request):
     if request.method == 'POST':
@@ -41,3 +41,11 @@ def post_delete(request, pk):
         return redirect('post_list')
         
     return render(request, 'blog/post_confirm_delete.html', {'post': post})
+
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        Comment.objects.create(post=post, author=request.user, text=text)
+        return redirect('post_detail', pk=post.pk)
+    return render(request, 'blog/comment_form.html', {'post': post})

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ post.title }}</h2>
+    <p><small>Publicado em: {{ post.pub_date|date:"d/m/Y H:i" }}</small></p>
+    
+    <div>
+        {{ post.content|safe }}
+    </div>
+
+    <hr>
+    <a href="{% url 'post_update' pk=post.pk %}">Editar</a> | 
+    <a href="{% url 'post_delete' pk=post.pk %}">Deletar</a> | 
+    <a href="{% url 'post_list' %}">Voltar</a>
+    <hr>
+    <h3>Comentários</h3>
+    
+    <a href="{% url 'add_comment' pk=post.pk %}">Deixar um comentário</a>
+    
+    <ul>
+        {% for comment in post.comments.all %}
+            <li>
+                <strong>{{ comment.author.username }}</strong> disse em {{ comment.pub_date|date:"d/m/Y H:i" }}:
+                <p>{{ comment.text }}</p>
+            </li>
+        {% empty %}
+            <p>Nenhum comentário ainda. Seja o primeiro!</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

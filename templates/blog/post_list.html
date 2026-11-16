@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de Posts</h2>
+    <a href="{% url 'post_create' %}">Criar Novo Post</a>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+                - Postado em: {{ post.pub_date|date:"d/m/Y H:i" }}
+            </li>
+        {% empty %}
+            <p>Nenhum post encontrado.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}
