@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment, Category
 
 def post_create(request):
     if request.method == 'POST':
@@ -49,3 +49,14 @@ def add_comment(request, pk):
         Comment.objects.create(post=post, author=request.user, text=text)
         return redirect('post_detail', pk=post.pk)
     return render(request, 'blog/comment_form.html', {'post': post})
+
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'blog/category_list.html', {'categories': categories})
+
+def category_detail(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    
+    posts = category.posts.all() 
+    
+    return render(request, 'blog/category_detail.html', {'category': category, 'posts': posts})

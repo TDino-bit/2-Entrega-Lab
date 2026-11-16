@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Todas as Categorias</h2>
+    <ul>
+        {% for cat in categories %}
+            <li><a href="{% url 'category_detail' pk=cat.pk %}">{{ cat.name }}</a></li>
+        {% empty %}
+            <p>Nenhuma categoria cadastrada.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

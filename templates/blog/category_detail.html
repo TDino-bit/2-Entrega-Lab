@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Categoria: {{ category.name }}</h2>
+    <p>{{ category.description }}</p>
+    
+    <h3>Posts nesta categoria:</h3>
+    {% include 'blog/post_list_snippet.html' %}
+    
+    <br>
+    <a href="{% url 'category_list' %}">Voltar para categorias</a>
+{% endblock %}

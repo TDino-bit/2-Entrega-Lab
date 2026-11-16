@@ -8,4 +8,6 @@ urlpatterns = [
     path('post/<int:pk>/editar/', views.post_update, name='post_update'),
     path('post/<int:pk>/deletar/', views.post_delete, name='post_delete'),
     path('post/<int:pk>/comentar/', views.add_comment, name='add_comment'),
+    path('categorias/', views.category_list, name='category_list'),
+    path('categoria/<int:pk>/', views.category_detail, name='category_detail'),
 ]

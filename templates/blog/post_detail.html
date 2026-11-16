@@ -3,7 +3,12 @@
 {% block content %}
     <h2>{{ post.title }}</h2>
     <p><small>Publicado em: {{ post.pub_date|date:"d/m/Y H:i" }}</small></p>
-    
+    <p>
+        Categorias: 
+        {% for cat in post.categories.all %}
+            <a href="{% url 'category_detail' pk=cat.pk %}">{{ cat.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
     <div>
         {{ post.content|safe }}
     </div>
